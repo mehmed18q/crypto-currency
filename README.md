@@ -9,6 +9,9 @@
 ## Overview
 
 Crypto Prices is a Django-based web service for fetching, storing, and serving cryptocurrency price data. It supports multiple data providers, scheduled background tasks, and a REST API with automatic documentation.
+Design and implement a Django service that exposes an API to retrieve and store the latest prices for cryptocurrencies (such as BTC and ETH) using an external public API (e.g., CoinGecko or Binance). Your solution should include models for currencies and historical prices, REST API endpoints to fetch the latest price and view recent history, and use asynchronous requests or background tasks to make price fetching efficient. The project should demonstrate proper error handling, code structure, and be easy to set up and extend
+
+
 
 ---
 
