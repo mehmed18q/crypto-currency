@@ -92,12 +92,14 @@ Crypto Prices is a Django-based web service for fetching, storing, and serving c
 
 ### Running with Docker Compose
 
-```
+
 git clone https://github.com/yourusername/crypto-prices.git
 cd crypto-prices
 
 # Build and start containers
+```
 docker compose up --build
+```
 
 This will start:
 
@@ -110,17 +112,25 @@ Django web app on port 8000
 Celery worker and Celery Beat scheduler
 
 API Endpoints
+```
 GET prices/latest/
+```
 Returns the latest prices of all active cryptocurrencies.
 
+```
 GET prices/history/{code}/?limit=N
+````
 Returns historical price data for the specified currency code with optional limit.
 
+```
 POST prices/fetch/
+```
 Triggers a manual fetch of the latest prices from the configured provider.
 
 API Documentation:
-Available at /swagger/ (Swagger UI) and /redoc/ (ReDoc UI).
+```
+/
+```
 
 Background Tasks
 Periodic price fetching every 5 minutes using Celery Beat.
@@ -140,6 +150,7 @@ View price history entries
 Configuration
 Environment variables (set in docker-compose.yml or .env):
 
+```
 CELERY_BROKER_URL: Redis connection string
 
 CRYPTO_PRICE_PROVIDER: Name of price provider to use (coingecko or binance)
