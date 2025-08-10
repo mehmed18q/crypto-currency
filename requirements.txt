@@ -1,0 +1,11 @@
+celery==5.5.3
+Django==5.2.5
+gunicorn==23.0.0
+djangorestframework==3.16.1
+drf-yasg==1.21.10
+httpx==0.28.1
+psycopg2-binary==2.9.10
+pytest==8.4.1
+python-dotenv==1.1.1
+redis==6.4.0
+whitenoise==6.9.0

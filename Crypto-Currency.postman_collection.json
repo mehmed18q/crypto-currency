@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "8b2f427d-cd67-45f8-bf3e-9aec0aacc703",
+		"name": "Crypto-Currency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31151918"
+	},
+	"item": [
+		{
+			"name": "api_fetch_prices",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "{{BASE_URL}}/prices/fetch/"
+			},
+			"response": []
+		},
+		{
+			"name": "latest_prices",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "price_history",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://127.0.0.1:8000/",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,77 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: crypto
+      POSTGRES_USER: crypto
+      POSTGRES_PASSWORD: crypto
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  web:
+    build: .
+    command: sh -c "python manage.py migrate --noinput && python manage.py fetch_prices && gunicorn crypto_price.wsgi:application --bind 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - DATABASE_URL=postgres://crypto:crypto@db:5432/crypto
+      - CRYPTO_PRICE_PROVIDER=coingecko
+      - DJANGO_SECRET_KEY=dev-secret
+      - DJANGO_DEBUG=1
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    build: .
+    command: celery -A crypto_price worker -l info
+    volumes:
+      - .:/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - DATABASE_URL=postgres://crypto:crypto@db:5432/crypto
+      - CRYPTO_PRICE_PROVIDER=coingecko
+      - DJANGO_SECRET_KEY=dev-secret
+      - DJANGO_DEBUG=1
+    depends_on:
+      - redis
+      - db
+
+  celery-beat:
+    build: .
+    command: celery -A crypto_price beat -l info
+    volumes:
+      - .:/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - DATABASE_URL=postgres://crypto:crypto@db:5432/crypto
+      - CRYPTO_PRICE_PROVIDER=coingecko
+      - DJANGO_SECRET_KEY=dev-secret
+      - DJANGO_DEBUG=1
+    depends_on:
+      - redis
+      - db
+
+  #  test:
+  #    build: .
+  #    command: pytest
+  #    volumes:
+  #      - .:/app
+  #    environment:
+  #      - DJANGO_SETTINGS_MODULE=crypto_price.settings
+  #    depends_on:
+  #      - db
+  #      - redis
+
+volumes:
+  db_data:
